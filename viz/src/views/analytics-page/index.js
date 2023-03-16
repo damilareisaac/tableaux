@@ -5,12 +5,13 @@ import SubCard from 'ui-component/cards/SubCard';
 import { Grid } from '@mui/material';
 import { gridSpacing } from 'store/constant';
 import LinearChart from './chart/linearChart';
+import config from 'config';
 
 const AnalyticsPage = () => {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:8000/report_query', {
+        fetch(`${config.endpoint}/report_query`, {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -20,12 +21,10 @@ const AnalyticsPage = () => {
 
     // useEffect(() => {
     //   localStorage.setItem("containers", JSON.stringify(containers));
-    //   console.log(containers);
     // }, [containers]);
 
     // useEffect(() => {
     //   const savedContainers = localStorage.getItem("containers");
-    //   // console.log(savedContainers);
     //   if (savedContainers) {
     //     setContainers(savedContainers);
     //   }
@@ -47,9 +46,7 @@ const AnalyticsPage = () => {
             <Grid container spacing={gridSpacing}>
                 {vizElement.map((element, index) => {
                     const storedData = JSON.parse(localStorage.getItem(element));
-                    console.log(storedData);
                     const { x, y, aggregator, chartType } = storedData[element];
-                    console.log(x, y, aggregator, chartType);
                     return (
                         <Grid item xs={12} md={6} lg={6} key={index}>
                             <SubCard>

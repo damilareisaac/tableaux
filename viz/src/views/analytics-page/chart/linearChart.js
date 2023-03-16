@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material/styles';
 
 // third-party
 import ReactApexChart from 'react-apexcharts';
+import config from 'config';
 
 // ==============================|| BAR CHART ||============================== //
 
@@ -74,7 +75,7 @@ const LinearChart = ({ data, chartID, xState, yState, aggState, chartState }) =>
     useEffect(() => {
         if (isMounted) {
             if (x || y || aggregator) {
-                fetch(`http://localhost:8000/update_chart_element?x=${x}&y=${y}&aggregator=${aggregator}`)
+                fetch(`${config.endpoint}/update_chart_element?x=${x}&y=${y}&aggregator=${aggregator}`)
                     .then((response) => response.json())
                     .then((payload) => {
                         if (payload.series) {
@@ -90,7 +91,6 @@ const LinearChart = ({ data, chartID, xState, yState, aggState, chartState }) =>
             }
             const chartState = { [chartID]: { x: x, y: y, aggregator: aggregator, chartType: chartType } };
             localStorage.setItem(chartID, JSON.stringify(chartState));
-            console.log('Updated chart state');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [x, y, aggregator, chartType]);

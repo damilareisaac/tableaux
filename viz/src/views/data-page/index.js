@@ -1,13 +1,14 @@
+import React, { useEffect, useState } from 'react';
+
 // material-ui
 import { Input } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
-import React, { useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-
 import DenseTable from './data-table';
+import config from 'config';
 
 // ==============================|| DATA PAGE ||============================== //
 
@@ -26,7 +27,7 @@ const DataPage = () => {
         if (file) {
             const formData = new FormData();
             formData.append('file', file[0]);
-            fetch('http://localhost:8000/upload', {
+            fetch(`${config.endpoint}/upload`, {
                 method: 'POST',
                 body: formData
             })
